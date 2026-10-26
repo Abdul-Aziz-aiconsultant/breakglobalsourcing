@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BREAK Global Sourcing | International B2B Trade Brokerage</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #220623;
+            --primary-purple: #3F0E40;
+            --purple-light: #5B185D;
+            --purple-glow: #8E24AA;
+            --accent-silver: #E2E8F0;
+            --accent-gold: #D4AF37;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --glass-bg: rgba(63, 14, 64, 0.4);
+            --glass-border: rgba(226, 232, 240, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Canvas Background Animation */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(34, 6, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-badge {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--purple-glow));
+            border: 1px solid var(--accent-silver);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(142, 36, 170, 0.4);
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: var(--purple-glow);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--accent-silver);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--purple-glow);
+            text-shadow: 0 0 10px var(--purple-glow);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: 0.3s transform;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 160px 5% 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(142, 36, 170, 0.15);
+            border: 1px solid var(--purple-glow);
+            color: var(--accent-silver);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-silver) 70%, var(--purple-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-glow), var(--primary-purple));
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(142, 36, 170, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(142, 36, 170, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--accent-silver);
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(226, 232, 240, 0.1);
+            color: white;
+        }
+
+        /* Section Layout */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        /* Category Filter & Cards */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--accent-silver);
+            padding: 10px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--purple-glow);
+            color: white;
+            border-color: var(--purple-glow);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--purple-glow);
+            box-shadow: 0 15px 35px rgba(63, 14, 64, 0.6);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--purple-light), var(--primary-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .tag-export { background: rgba(37, 211, 102, 0.15); color: #25D366; }
+        .tag-import { background: rgba(142, 36, 170, 0.2); color: var(--purple-glow); }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Partners / Clients */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .client-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .client-card:hover {
+            border-color: var(--accent-silver);
+            transform: scale(1.02);
+        }
+
+        .client-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .client-location {
+            color: var(--purple-glow);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--purple-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-silver);
+        }
+
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 30px 5%;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-actions { justify-content: center; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo-container">
+            <div class="logo-badge">B</div>
+            <div class="logo-text">BREAK <span>GLOBAL</span></div>
+        </a>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Trade Categories</a>
+            <a href="#clients">Partners</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <a href="https://wa.me/923036182866?text=Hello%20BREAK%20Global%20Sourcing,%20I%20have%20a%20trade%20inquiry." target="_blank" class="nav-cta">
+            <i class="fab fa-whatsapp"></i> Instant Chat
+        </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fas fa-shield-alt"></i> Premier B2B Trade & Sourcing Brokerage</div>
+            <h1>Connecting Global Trade with High Precision</h1>
+            <p>We facilitate seamless B2B transactions between verified global buyers and manufacturers. Specializing in Pakistani quality exports and critical industrial imports.</p>
+            <div class="hero-actions">
+                <a href="#portfolio" class="btn-primary">Explore Categories</a>
+                <a href="#contact" class="btn-secondary">Request RFQ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trade Categories Portfolio -->
+    <section id="portfolio">
+        <div class="section-header">
+            <h2>Global Trade Portfolio</h2>
+            <p>Our key export and import commodity niches operating under global trade standards.</p>
+        </div>
+
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterPortfolio('all')">All Niches</button>
+            <button class="tab-btn" onclick="filterPortfolio('export')">Exports (From PK)</button>
+            <button class="tab-btn" onclick="filterPortfolio('import')">Imports (To PK)</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <!-- Exports -->
+            <div class="product-card export">
+                <span class="card-tag tag-export">Export</span>
+                <div class="card-icon"><i class="fas fa-tshirt"></i></div>
+                <h3>Textiles & Apparel</h3>
+                <p>High-grade denim, home textiles, knitwear, and customized apparel sourcing directly from certified mills.</p>
+            </div>
+
+            <div class="product-card export">
+                <span class="card-tag tag-export">Export</span>
+                <div class="card-icon"><i class="fas fa-seedling"></i></div>
+                <h3>Agricultural Products</h3>
+                <p>Premium Super Kernel Basmati Rice, fresh mangoes, citrus (Kinnow), and organic dehydrated produce.</p>
+            </div>
+
+            <div class="product-card export">
+                <span class="card-tag tag-export">Export</span>
+                <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                <h3>Leather Goods</h3>
+                <p>Genuine leather jackets, industrial safety gloves, shoes, and luxury leather accessories.</p>
+            </div>
+
+            <div class="product-card export">
+                <span class="card-tag tag-export">Export</span>
+                <div class="card-icon"><i class="fas fa-notes-medical"></i></div>
+                <h3>Surgical & Sports</h3>
+                <p>German-grade surgical instruments, dental tools, along with FIFA-standard soccer balls and sportswear.</p>
+            </div>
+
+            <!-- Imports -->
+            <div class="product-card import">
+                <span class="card-tag tag-import">Import</span>
+                <div class="card-icon"><i class="fas fa-gas-pump"></i></div>
+                <h3>Mineral Fuels & Oils</h3>
+                <p>Bulk sourcing of refined petroleum products, specialized lubricants, and industrial energy raw materials.</p>
+            </div>
+
+            <div class="product-card import">
+                <span class="card-tag tag-import">Import</span>
+                <div class="card-icon"><i class="fas fa-cogs"></i></div>
+                <h3>Heavy Machinery</h3>
+                <p>Industrial textile machinery, CNC equipment, and heavy construction plant imports.</p>
+            </div>
+
+            <div class="product-card import">
+                <span class="card-tag tag-import">Import</span>
+                <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                <h3>Electrical Equipment</h3>
+                <p>Automation components, high-voltage equipment, microcontrollers, and industrial solar systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Clients / Partners -->
+    <section id="clients">
+        <div class="section-header">
+            <h2>Trusted Partners & Clients</h2>
+            <p>Delivering high-trust brokerage services for renowned local and international entities.</p>
+        </div>
+
+        <div class="clients-grid">
+            <div class="client-card">
+                <div class="client-logo">LAVERO</div>
+                <div class="client-location">Pakistan</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Premier Brand for Luxury Perfumes & Apparel</p>
+            </div>
+            <div class="client-card">
+                <div class="client-logo">AURA GLOBAL</div>
+                <div class="client-location">United Arab Emirates</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">International Food Commodities Trading</p>
+            </div>
+            <div class="client-card">
+                <div class="client-logo">VANGUARD IND.</div>
+                <div class="client-location">European Union</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Medical & Surgical Distribution Partner</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & RFQ -->
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Ready to discuss trade sourcing, commission structure, or manufacturer verification?</p>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div>
+                        <div style="font-size:0.8rem; color: var(--text-muted);">WhatsApp / Direct Line</div>
+                        <strong>+92 303 6182866</strong>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div style="font-size:0.8rem; color: var(--text-muted);">Official Desk</div>
+                        <strong>breakglobalsourcing.official@gmail.com</strong>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <div style="font-size:0.8rem; color: var(--text-muted);">Corporate Office</div>
+                        <strong>Gulberg III, Lahore, Punjab, Pakistan</strong>
+                    </div>
+                </div>
+            </div>
+
+            <form style="display: flex; flex-direction: column; gap: 15px;" onsubmit="event.preventDefault(); alert('RFQ Sent! We will contact you shortly.');">
+                <input type="text" placeholder="Your Name / Enterprise Name" required style="padding: 14px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white;">
+                <input type="email" placeholder="Corporate Email Address" required style="padding: 14px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white;">
+                <textarea rows="4" placeholder="Trade Inquiries (Quantity, Commodity Type, Destination)" required style="padding: 14px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white;"></textarea>
+                <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Submit RFQ Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 BREAK Global Sourcing. All Rights Reserved. | Executive B2B Trade Brokerage</p>
+    </footer>
+
+    <!-- Interactive Canvas & Category Filter JavaScript -->
+    <script>
+        // Interactive Canvas Animation
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = Array.from({ length: 45 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8,
+            r: Math.random() * 2 + 1
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#8E24AA';
+            ctx.strokeStyle = 'rgba(142, 36, 170, 0.15)';
+
+            particles.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Portfolio Filtering
+        function filterPortfolio(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
